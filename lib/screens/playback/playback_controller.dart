@@ -10,6 +10,8 @@ class PlaybackController extends GetxController {
   String? audioPath;
   Rx<VideoState> state = Rx<VideoState>(VideoState.loading);
   Rx<Song?> song = Rx<Song?>(null);
+  Rx<Duration> position = Rx<Duration>(Duration.zero);
+  Rx<Duration> duration = Rx<Duration>(Duration.zero);
 
   bool isPlayAudio = true;
   bool isPlayVideo = true;
@@ -24,21 +26,22 @@ class PlaybackController extends GetxController {
         videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
       ..initialize().then((_) {
         state.value = VideoState.ready;
-        videoPlayer.setVolume(0);
       });
   }
 
   Future<void> initPlayer() async {
     EffectController effectController = Get.find();
     audioPlayer = await effectController.init(audioPath!);
-    final duration = await audioPlayer.duration;
-    print(duration);
+    duration.value = audioPlayer.duration!;
     audioPlayer.setPitch(1.1);
 
     audioPlayer.playerStateStream.listen((state) {
       if (state.processingState == ProcessingState.completed) {
         done();
       }
+    });
+    audioPlayer.positionStream.listen((event) {
+      position.value = event;
     });
   }
 

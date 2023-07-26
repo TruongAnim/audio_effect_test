@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:audio_effect_test/screens/playback/playback_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,6 +52,12 @@ class _PlayerState extends State<Player> {
     double h = MediaQuery.of(context).size.height;
     return Obx(
       () {
+        double sliderMaxValue =
+            controller.duration.value.inMilliseconds.toDouble();
+        double sliderValue = min(
+            controller.position.value.inMilliseconds.toDouble(),
+            sliderMaxValue);
+
         return Container(
           height: h * 0.07,
           child: Row(children: [
@@ -72,8 +80,11 @@ class _PlayerState extends State<Player> {
             ),
             Expanded(
               child: Slider(
-                value: 0,
-                max: 100,
+                value: sliderValue,
+                max: sliderMaxValue,
+                min: 0,
+                activeColor: Colors.white,
+                inactiveColor: Colors.grey,
                 onChanged: (double value) {},
               ),
             ),

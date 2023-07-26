@@ -55,8 +55,8 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
                   ),
             const Player(),
             const Spacer(),
-            const Row(
-              children: [
+            Row(
+              children: const [
                 SizedBox(width: 15),
                 Text(
                   'Sound effects',
