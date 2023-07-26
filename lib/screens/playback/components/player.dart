@@ -14,23 +14,34 @@ class _PlayerState extends State<Player> {
 
   iconPlay() {
     return GestureDetector(
+      onTap: controller.play,
       child: const Icon(
         Icons.play_arrow,
         color: Colors.white,
         size: 25,
       ),
-      onTap: controller.play,
     );
   }
 
   iconPause() {
     return GestureDetector(
+      onTap: controller.pause,
       child: const Icon(
         Icons.pause,
         color: Colors.white,
         size: 25,
       ),
-      onTap: controller.pause,
+    );
+  }
+
+  iconReload() {
+    return GestureDetector(
+      onTap: controller.replay,
+      child: const Icon(
+        Icons.refresh,
+        color: Colors.white,
+        size: 25,
+      ),
     );
   }
 
@@ -39,7 +50,6 @@ class _PlayerState extends State<Player> {
     double h = MediaQuery.of(context).size.height;
     return Obx(
       () {
-        print(controller.state.value);
         return Container(
           height: h * 0.07,
           child: Row(children: [
@@ -49,7 +59,9 @@ class _PlayerState extends State<Player> {
             controller.state.value == VideoState.ready ||
                     controller.state.value == VideoState.pause
                 ? iconPlay()
-                : iconPause(),
+                : controller.state.value == VideoState.stop
+                    ? iconReload()
+                    : iconPause(),
             const SizedBox(
               width: 10,
             ),

@@ -8,18 +8,22 @@ enum VideoState { loading, ready, playing, pause, stop }
 
 class PlaybackController extends GetxController {
   String? audioPath;
-  late final AudioPlayer audioPlayer;
   Rx<VideoState> state = Rx<VideoState>(VideoState.loading);
-  late VideoPlayerController playerController;
   Rx<Song?> song = Rx<Song?>(null);
+
+  bool isPlayAudio = true;
+  bool isPlayVideo = true;
+
+  late AudioPlayer audioPlayer;
+  late VideoPlayerController videoPlayer;
 
   void loadData() {
     getSong();
     initPlayer();
-    playerController = VideoPlayerController.asset(song.value!.url)
+    videoPlayer = VideoPlayerController.asset(song.value!.url)
       ..initialize().then((_) {
         state.value = VideoState.ready;
-        playerController.setVolume(0);
+        videoPlayer.setVolume(0);
       });
   }
 
@@ -28,13 +32,18 @@ class PlaybackController extends GetxController {
     audioPlayer = await effectController.init(audioPath!);
     final duration = await audioPlayer.duration;
     print(duration);
-
     audioPlayer.setPitch(1.1);
+
+    audioPlayer.playerStateStream.listen((state) {
+      if (state.processingState == ProcessingState.completed) {
+        done();
+      }
+    });
   }
 
   @override
   void onClose() {
-    playerController.dispose();
+    videoPlayer.dispose();
     audioPlayer.dispose();
     super.onClose();
   }
@@ -47,19 +56,27 @@ class PlaybackController extends GetxController {
   }
 
   void play() {
-    playerController.play();
+    if (isPlayVideo) {
+      videoPlayer.play();
+    }
+
     audioPlayer.play();
     state.value = VideoState.playing;
   }
 
   void pause() {
-    playerController.pause();
+    if (isPlayVideo) {
+      videoPlayer.pause();
+    }
     audioPlayer.pause();
     state.value = VideoState.pause;
   }
 
   void done() {
-    playerController.pause();
+    print('done');
+    if (isPlayVideo) {
+      videoPlayer.pause();
+    }
     state.value = VideoState.stop;
   }
 
@@ -73,8 +90,10 @@ class PlaybackController extends GetxController {
     }
   }
 
-  doneButtonTap() {
-    done();
+  replay() {
+    state.value = VideoState.playing;
+    audioPlayer.seek(Duration.zero);
+    videoPlayer.seekTo(Duration.zero);
   }
 
   void setAudioPath(String path) {
@@ -84,9 +103,9 @@ class PlaybackController extends GetxController {
   void clearState() {
     print('clear state');
     state.value = VideoState.stop;
+    videoPlayer.pause();
+    videoPlayer.dispose();
     audioPlayer.pause();
-    playerController.pause();
-    playerController.dispose();
     audioPlayer.dispose();
   }
 }

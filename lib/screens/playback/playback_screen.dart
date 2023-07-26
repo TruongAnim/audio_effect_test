@@ -42,8 +42,8 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
             const Header(),
             controller.state.value != VideoState.loading
                 ? AspectRatio(
-                    aspectRatio: controller.playerController.value.aspectRatio,
-                    child: VideoPlayer(controller.playerController),
+                    aspectRatio: controller.videoPlayer.value.aspectRatio,
+                    child: VideoPlayer(controller.videoPlayer),
                   )
                 : SizedBox(
                     height: h * 0.2,
@@ -55,8 +55,8 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
                   ),
             const Player(),
             const Spacer(),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 SizedBox(width: 15),
                 Text(
                   'Sound effects',
