@@ -20,7 +20,8 @@ class PlaybackController extends GetxController {
   void loadData() {
     getSong();
     initPlayer();
-    videoPlayer = VideoPlayerController.asset(song.value!.url)
+    videoPlayer = VideoPlayerController.asset(song.value!.url,
+        videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
       ..initialize().then((_) {
         state.value = VideoState.ready;
         videoPlayer.setVolume(0);
@@ -59,8 +60,9 @@ class PlaybackController extends GetxController {
     if (isPlayVideo) {
       videoPlayer.play();
     }
-
-    audioPlayer.play();
+    if (isPlayAudio) {
+      audioPlayer.play();
+    }
     state.value = VideoState.playing;
   }
 
@@ -68,7 +70,9 @@ class PlaybackController extends GetxController {
     if (isPlayVideo) {
       videoPlayer.pause();
     }
-    audioPlayer.pause();
+    if (isPlayAudio) {
+      audioPlayer.pause();
+    }
     state.value = VideoState.pause;
   }
 
@@ -92,8 +96,13 @@ class PlaybackController extends GetxController {
 
   replay() {
     state.value = VideoState.playing;
-    audioPlayer.seek(Duration.zero);
-    videoPlayer.seekTo(Duration.zero);
+    if (isPlayAudio) {
+      audioPlayer.seek(Duration.zero);
+    }
+    if (isPlayVideo) {
+      videoPlayer.seekTo(Duration.zero);
+      videoPlayer.play();
+    }
   }
 
   void setAudioPath(String path) {
