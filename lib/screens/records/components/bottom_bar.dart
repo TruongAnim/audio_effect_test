@@ -10,22 +10,22 @@ class BottomBar extends StatelessWidget {
   RecordController controller = Get.find();
 
   Widget getButton() {
-    if (controller.state.value == VideoState.ready) {
+    if (controller.state.value == RecordState.ready) {
       return const Text(
         'Start',
         style: TextStyle(color: Colors.white, fontSize: 16),
       );
-    } else if (controller.state.value == VideoState.playing) {
+    } else if (controller.state.value == RecordState.playing) {
       return const Icon(
         Icons.pause,
         color: Colors.white,
-        size: 25,
+        size: 40,
       );
     } else {
       return const Icon(
         Icons.play_arrow,
         color: Colors.white,
-        size: 25,
+        size: 40,
       );
     }
   }
@@ -36,9 +36,9 @@ class BottomBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         BottomBarItem(
-          icon: Icons.restart_alt,
+          icon: Icons.refresh,
           title: 'Reset',
-          callback: () {},
+          callback: controller.resetButtonTap,
         ),
         BottomBarItem(
           icon: Icons.volume_up,
@@ -47,7 +47,11 @@ class BottomBar extends StatelessWidget {
         ),
         CircularButton(
           onPressed: controller.mainButtonTap,
-          child: getButton(),
+          child: Container(
+              alignment: Alignment.center,
+              width: 40,
+              height: 40,
+              child: getButton()),
         ),
         BottomBarItem(
           icon: Icons.mic,

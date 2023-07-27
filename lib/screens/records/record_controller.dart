@@ -4,11 +4,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 import 'package:record/record.dart';
 
-enum VideoState { loading, ready, playing, pause, stop }
+enum RecordState { loading, ready, playing, pause, stop }
 
 class RecordController extends GetxController {
-  late VideoPlayerController playerController;
-  Rx<VideoState> state = Rx<VideoState>(VideoState.loading);
+  late VideoPlayerController videoPlayer;
+  Rx<RecordState> state = Rx<RecordState>(RecordState.loading);
   Rx<Song?> song = Rx<Song?>(null);
   Rx<Duration> position = Rx<Duration>(Duration.zero);
 
@@ -19,12 +19,12 @@ class RecordController extends GetxController {
     super.onInit();
     getSong();
     _getAppDirectoryPath();
-    playerController = VideoPlayerController.asset(song.value!.url)
+    videoPlayer = VideoPlayerController.asset(song.value!.url)
       ..initialize().then((_) {
-        state.value = VideoState.ready;
+        state.value = RecordState.ready;
       });
-    playerController.addListener(() async {
-      position.value = (await playerController.position)!;
+    videoPlayer.addListener(() async {
+      position.value = (await videoPlayer.position)!;
       print(position);
     });
   }
@@ -32,7 +32,7 @@ class RecordController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-    playerController.dispose();
+    videoPlayer.dispose();
     record.dispose();
   }
 
@@ -45,8 +45,8 @@ class RecordController extends GetxController {
 
   void play() {
     print('play');
-    playerController.play();
-    state.value = VideoState.playing;
+    videoPlayer.play();
+    state.value = RecordState.playing;
     startRecording();
   }
 
@@ -67,8 +67,8 @@ class RecordController extends GetxController {
 
   void pause() {
     print('pause');
-    playerController.pause();
-    state.value = VideoState.pause;
+    videoPlayer.pause();
+    state.value = RecordState.pause;
     pauseRecording();
   }
 
@@ -80,33 +80,43 @@ class RecordController extends GetxController {
 
   void done() {
     print('done');
-    if (state.value == VideoState.pause) {
-      state.value = VideoState.stop;
-      stopRecording();
+    if (state.value == RecordState.pause) {
+      state.value = RecordState.stop;
+      stopRecording(true);
     }
   }
 
-  Future<void> stopRecording() async {
+  Future<void> stopRecording(bool isDone) async {
     String? path = await record.stop();
-    print(path);
-    await Get.toNamed('playback_screen', arguments: path!);
-    state.value = VideoState.ready;
-    playerController.seekTo(Duration.zero);
-    playerController.pause();
+    state.value = RecordState.ready;
+    videoPlayer.pause();
+    videoPlayer.seekTo(Duration.zero);
+    if (isDone) {
+      toPlaybackScreen(path!);
+    }
   }
 
-  mainButtonTap() {
-    if (state.value == VideoState.ready) {
+  void toPlaybackScreen(String path) async {
+    await Get.toNamed('playback_screen', arguments: path);
+  }
+
+  void mainButtonTap() {
+    if (state.value == RecordState.ready) {
       play();
-    } else if (state.value == VideoState.playing) {
+    } else if (state.value == RecordState.playing) {
       pause();
-    } else if (state.value == VideoState.pause) {
+    } else if (state.value == RecordState.pause) {
       play();
     }
   }
 
-  doneButtonTap() {
+  void doneButtonTap() {
     done();
+  }
+
+  void resetButtonTap() {
+    print('resetButtonTap');
+    stopRecording(false);
   }
 
   Future<void> _getAppDirectoryPath() async {

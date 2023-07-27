@@ -14,18 +14,21 @@ class BottomBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            size: 35,
-            color: Colors.white,
-          ),
-          Text(
-            title,
-            style: TextStyle(color: Colors.white),
-          )
-        ],
+      child: GestureDetector(
+        onTap: callback,
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              size: 35,
+              color: Colors.white,
+            ),
+            Text(
+              title,
+              style: TextStyle(color: Colors.white),
+            )
+          ],
+        ),
       ),
     );
   }

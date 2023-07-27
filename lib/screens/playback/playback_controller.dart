@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:video_player/video_player.dart';
 
-enum VideoState { loading, ready, playing, pause, stop }
+enum PlaybackState { loading, ready, playing, pause, stop }
 
 class PlaybackController extends GetxController {
   String? audioPath;
-  Rx<VideoState> state = Rx<VideoState>(VideoState.loading);
+  Rx<PlaybackState> state = Rx<PlaybackState>(PlaybackState.loading);
   Rx<Song?> song = Rx<Song?>(null);
   Rx<Duration> position = Rx<Duration>(Duration.zero);
   Rx<Duration> duration = Rx<Duration>(Duration.zero);
@@ -25,7 +25,7 @@ class PlaybackController extends GetxController {
     videoPlayer = VideoPlayerController.asset(song.value!.url,
         videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
       ..initialize().then((_) {
-        state.value = VideoState.ready;
+        state.value = PlaybackState.ready;
       });
   }
 
@@ -66,7 +66,7 @@ class PlaybackController extends GetxController {
     if (isPlayAudio) {
       audioPlayer.play();
     }
-    state.value = VideoState.playing;
+    state.value = PlaybackState.playing;
   }
 
   void pause() {
@@ -76,7 +76,7 @@ class PlaybackController extends GetxController {
     if (isPlayAudio) {
       audioPlayer.pause();
     }
-    state.value = VideoState.pause;
+    state.value = PlaybackState.pause;
   }
 
   void done() {
@@ -84,21 +84,21 @@ class PlaybackController extends GetxController {
     if (isPlayVideo) {
       videoPlayer.pause();
     }
-    state.value = VideoState.stop;
+    state.value = PlaybackState.stop;
   }
 
   mainButtonTap() {
-    if (state.value == VideoState.ready) {
+    if (state.value == PlaybackState.ready) {
       play();
-    } else if (state.value == VideoState.playing) {
+    } else if (state.value == PlaybackState.playing) {
       pause();
-    } else if (state.value == VideoState.pause) {
+    } else if (state.value == PlaybackState.pause) {
       play();
     }
   }
 
   replay() {
-    state.value = VideoState.playing;
+    state.value = PlaybackState.playing;
     if (isPlayAudio) {
       audioPlayer.seek(Duration.zero);
     }
@@ -114,7 +114,7 @@ class PlaybackController extends GetxController {
 
   void clearState() {
     print('clear state');
-    state.value = VideoState.stop;
+    state.value = PlaybackState.stop;
     videoPlayer.pause();
     videoPlayer.dispose();
     audioPlayer.pause();

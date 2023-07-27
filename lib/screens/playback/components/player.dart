@@ -64,10 +64,10 @@ class _PlayerState extends State<Player> {
             const SizedBox(
               width: 5,
             ),
-            controller.state.value == VideoState.ready ||
-                    controller.state.value == VideoState.pause
+            controller.state.value == PlaybackState.ready ||
+                    controller.state.value == PlaybackState.pause
                 ? iconPlay()
-                : controller.state.value == VideoState.stop
+                : controller.state.value == PlaybackState.stop
                     ? iconReload()
                     : iconPause(),
             const SizedBox(

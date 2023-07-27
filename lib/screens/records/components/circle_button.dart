@@ -13,7 +13,7 @@ class CircularButton extends StatelessWidget {
       elevation: 2.0,
       fillColor: Colors.pink,
       child: child,
-      padding: EdgeInsets.all(25.0),
+      padding: EdgeInsets.all(10.0),
       shape: CircleBorder(),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:audio_effect_test/components/circular_text_button.dart';
 import 'package:audio_effect_test/constants/colors.dart';
 import 'package:audio_effect_test/models/song.dart';
 import 'package:audio_effect_test/screens/records/record_controller.dart';
@@ -61,16 +62,11 @@ class _HeaderState extends State<Header> {
               const SizedBox(
                 width: 15,
               ),
-              ElevatedButton(
-                  onPressed: controller.doneButtonTap, child: Text('Done')),
-              // Text(
-              //   '00:00',
-              //   style: TextStyle(
-              //       color: Colors.white.withOpacity(0.9), fontSize: 16),
-              // ),
-              const SizedBox(
-                width: 15,
-              ),
+              RoundTextButton(
+                  text: 'Done',
+                  onPressed: controller.doneButtonTap,
+                  isEnable: controller.state.value == RecordState.pause),
+              const SizedBox(width: 15),
             ],
           ),
         );

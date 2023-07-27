@@ -28,11 +28,10 @@ class _RecordScreenState extends State<RecordScreen> {
             child: Column(
               children: [
                 const Header(),
-                controller.state.value != VideoState.loading
+                controller.state.value != RecordState.loading
                     ? AspectRatio(
-                        aspectRatio:
-                            controller.playerController.value.aspectRatio,
-                        child: VideoPlayer(controller.playerController),
+                        aspectRatio: controller.videoPlayer.value.aspectRatio,
+                        child: VideoPlayer(controller.videoPlayer),
                       )
                     : SizedBox(
                         height: h * 0.2,

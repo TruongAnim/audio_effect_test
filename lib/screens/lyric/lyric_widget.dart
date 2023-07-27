@@ -23,11 +23,10 @@ class _LyricWidgetState extends State<LyricWidget> {
   int playProgress = 111658;
   double max_value = 211658;
   bool isTap = false;
-  var playing = false;
 
   bool useEnhancedLrc = false;
   var lyricModel = LyricsModelBuilder.create()
-      .bindLyricToMain(advancedLyric)
+      .bindLyricToMain(normalLyric)
       // .bindLyricToExt(transLyric)
       .getModel();
   var lyricUI = UINetease();
@@ -47,7 +46,7 @@ class _LyricWidgetState extends State<LyricWidget> {
             model: lyricModel,
             position: recordController.position.value.inMilliseconds,
             lyricUi: lyricUI,
-            playing: playing,
+            playing: recordController.state.value == RecordState.playing,
             size: Size(double.infinity, MediaQuery.of(context).size.height / 2),
             emptyBuilder: () => Center(
               child: Text(
@@ -63,7 +62,7 @@ class _LyricWidgetState extends State<LyricWidget> {
                         LyricsLog.logD("点击事件");
                         confirm.call();
                         setState(() {
-                          audioPlayer?.seek(Duration(milliseconds: progress));
+                          // audioPlayer?.seek(Duration(milliseconds: progress));
                         });
                       },
                       icon: Icon(Icons.play_arrow, color: Colors.green)),

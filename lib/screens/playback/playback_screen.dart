@@ -41,7 +41,7 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
         body: SafeArea(
           child: Column(children: [
             const Header(),
-            controller.state.value != VideoState.loading
+            controller.state.value != PlaybackState.loading
                 ? AspectRatio(
                     aspectRatio: controller.videoPlayer.value.aspectRatio,
                     child: VideoPlayer(controller.videoPlayer),
