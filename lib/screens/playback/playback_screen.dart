@@ -1,5 +1,4 @@
 import 'package:audio_effect_test/constants/colors.dart';
-import 'package:audio_effect_test/screens/lyric/lyric_widget.dart';
 import 'package:audio_effect_test/screens/playback/playback_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -51,7 +50,7 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
                     child: const SizedBox(
                       width: 50,
                       height: 50,
-                      child: CircularProgressIndicator(),
+                      child: Center(child: CircularProgressIndicator()),
                     ),
                   ),
             const PlaybackPlayer(),

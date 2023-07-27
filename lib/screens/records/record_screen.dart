@@ -39,7 +39,7 @@ class _RecordScreenState extends State<RecordScreen> {
                         child: const SizedBox(
                           width: 50,
                           height: 50,
-                          child: CircularProgressIndicator(),
+                          child: Center(child: CircularProgressIndicator()),
                         ),
                       ),
                 const SizedBox(height: 15),
