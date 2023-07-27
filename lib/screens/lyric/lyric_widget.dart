@@ -1,5 +1,4 @@
 import 'package:audio_effect_test/screens/lyric/components/lyric_background.dart';
-import 'package:audio_effect_test/screens/playback/playback_controller.dart';
 import 'package:audio_effect_test/screens/records/record_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
@@ -19,9 +18,6 @@ class _LyricWidgetState extends State<LyricWidget> {
   RecordController recordController = Get.find();
   var lyricPadding = 40.0;
   AudioPlayer? audioPlayer;
-  double sliderProgress = 111658;
-  int playProgress = 111658;
-  double max_value = 211658;
   bool isTap = false;
 
   bool useEnhancedLrc = false;

@@ -1,4 +1,4 @@
-import 'package:audio_effect_test/constants/colors.dart';
+import 'package:audio_effect_test/components/round_text_button.dart';
 import 'package:audio_effect_test/models/song.dart';
 import 'package:audio_effect_test/screens/records/record_controller.dart';
 import 'package:flutter/material.dart';
@@ -30,24 +30,27 @@ class _HeaderState extends State<Header> {
           child: Row(
             children: [
               const SizedBox(
-                width: 15,
+                width: 10,
               ),
-              const Icon(
-                Icons.arrow_back,
-                size: 25,
-                color: Colors.white,
+              GestureDetector(
+                onTap: controller.back,
+                child: const Icon(
+                  Icons.arrow_back,
+                  size: 25,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(
-                width: 15,
+                width: 10,
               ),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     Text(
                       "Record editing",
-                      style: const TextStyle(color: Colors.white, fontSize: 18),
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ],
                 ),
@@ -55,14 +58,9 @@ class _HeaderState extends State<Header> {
               const SizedBox(
                 width: 15,
               ),
-              Text(
-                'Save draft',
-                style: TextStyle(
-                    color: Colors.white.withOpacity(0.9), fontSize: 16),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
+              RoundTextButton(
+                  text: 'Save', onPressed: controller.save, isEnable: true),
+              const SizedBox(width: 15),
             ],
           ),
         );

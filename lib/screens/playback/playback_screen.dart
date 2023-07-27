@@ -7,7 +7,7 @@ import 'package:video_player/video_player.dart';
 
 import 'components/bottom_bar.dart';
 import 'components/header.dart';
-import 'components/player.dart';
+import 'components/playback_player.dart';
 
 class PlaybackScreen extends StatefulWidget {
   const PlaybackScreen({super.key});
@@ -54,9 +54,9 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
                       child: CircularProgressIndicator(),
                     ),
                   ),
-            const Player(),
-            Spacer(),
-            SizedBox(
+            const PlaybackPlayer(),
+            const Spacer(),
+            const SizedBox(
               height: 10,
             ),
             Row(

@@ -11,6 +11,7 @@ class RecordController extends GetxController {
   Rx<RecordState> state = Rx<RecordState>(RecordState.loading);
   Rx<Song?> song = Rx<Song?>(null);
   Rx<Duration> position = Rx<Duration>(Duration.zero);
+  Rx<Duration> duration = Rx<Duration>(Duration.zero);
 
   String _appDirectoryPath = "";
   Record record = Record();
@@ -115,7 +116,6 @@ class RecordController extends GetxController {
   }
 
   void resetButtonTap() {
-    print('resetButtonTap');
     stopRecording(false);
   }
 
@@ -127,4 +127,10 @@ class RecordController extends GetxController {
       print("Error getting application directory path: $e");
     }
   }
+
+  void back() {
+    Get.back();
+  }
+
+  void save() {}
 }

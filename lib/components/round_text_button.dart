@@ -25,7 +25,7 @@ class RoundTextButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      child: const Text('Done'),
+      child: Text(text),
     );
   }
 }

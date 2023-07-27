@@ -13,7 +13,8 @@ class BottomBar extends StatelessWidget {
     if (controller.state.value == RecordState.ready) {
       return const Text(
         'Start',
-        style: TextStyle(color: Colors.white, fontSize: 16),
+        style: TextStyle(
+            color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
       );
     } else if (controller.state.value == RecordState.playing) {
       return const Icon(

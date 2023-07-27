@@ -1,3 +1,4 @@
+import 'package:audio_effect_test/components/timer_widget.dart';
 import 'package:audio_effect_test/constants/colors.dart';
 import 'package:audio_effect_test/screens/lyric/lyric_widget.dart';
 import 'package:audio_effect_test/screens/records/components/bottom_bar.dart';
@@ -41,14 +42,25 @@ class _RecordScreenState extends State<RecordScreen> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
-                SizedBox(height: 15),
-                Container(
-                  height: h * 0.35,
-                  child: LyricWidget(),
+                const SizedBox(height: 15),
+                SizedBox(
+                  height: h * 0.4,
+                  child: const LyricWidget(),
                 ),
-                Spacer(),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(width: 10),
+                    TimerWidget(
+                      duration: controller.position.value,
+                      color: Colors.white.withOpacity(0.8),
+                      isRecord: true,
+                    )
+                  ],
+                ),
                 BottomBar(),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
               ],
             ),
           ),

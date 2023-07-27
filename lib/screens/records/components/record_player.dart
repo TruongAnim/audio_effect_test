@@ -1,22 +1,23 @@
 import 'dart:math';
 
-import 'package:audio_effect_test/screens/playback/playback_controller.dart';
+import 'package:audio_effect_test/components/timer_widget.dart';
+import 'package:audio_effect_test/screens/records/record_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Player extends StatefulWidget {
-  const Player({super.key});
+class RecordPlayer extends StatefulWidget {
+  const RecordPlayer({super.key});
 
   @override
-  State<Player> createState() => _PlayerState();
+  State<RecordPlayer> createState() => _RecordPlayerState();
 }
 
-class _PlayerState extends State<Player> {
-  PlaybackController controller = Get.find();
+class _RecordPlayerState extends State<RecordPlayer> {
+  RecordController controller = Get.find();
 
   iconPlay() {
     return GestureDetector(
-      onTap: controller.play,
+      // onTap: controller.play,
       child: const Icon(
         Icons.play_arrow,
         color: Colors.white,
@@ -27,7 +28,7 @@ class _PlayerState extends State<Player> {
 
   iconPause() {
     return GestureDetector(
-      onTap: controller.pause,
+      // onTap: controller.pause,
       child: const Icon(
         Icons.pause,
         color: Colors.white,
@@ -38,7 +39,7 @@ class _PlayerState extends State<Player> {
 
   iconReload() {
     return GestureDetector(
-      onTap: controller.replay,
+      // onTap: controller.replay,
       child: const Icon(
         Icons.refresh,
         color: Colors.white,
@@ -64,19 +65,19 @@ class _PlayerState extends State<Player> {
             const SizedBox(
               width: 5,
             ),
-            controller.state.value == PlaybackState.ready ||
-                    controller.state.value == PlaybackState.pause
+            controller.state.value == RecordState.ready ||
+                    controller.state.value == RecordState.pause
                 ? iconPlay()
-                : controller.state.value == PlaybackState.stop
+                : controller.state.value == RecordState.stop
                     ? iconReload()
                     : iconPause(),
             const SizedBox(
               width: 10,
             ),
-            Text(
-              '00:00',
-              style:
-                  TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
+            TimerWidget(
+              duration: controller.position.value,
+              color: Colors.white.withOpacity(0.8),
+              isRecord: false,
             ),
             Expanded(
               child: Slider(
@@ -88,10 +89,10 @@ class _PlayerState extends State<Player> {
                 onChanged: (double value) {},
               ),
             ),
-            Text(
-              '00:00',
-              style:
-                  TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
+            TimerWidget(
+              duration: controller.duration.value,
+              color: Colors.white.withOpacity(0.8),
+              isRecord: false,
             ),
             const SizedBox(
               width: 10,

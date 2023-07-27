@@ -1,4 +1,4 @@
-import 'package:audio_effect_test/components/circular_text_button.dart';
+import 'package:audio_effect_test/components/round_text_button.dart';
 import 'package:audio_effect_test/constants/colors.dart';
 import 'package:audio_effect_test/models/song.dart';
 import 'package:audio_effect_test/screens/records/record_controller.dart';
