@@ -134,6 +134,4 @@ class RecordController extends GetxController {
   void back() {
     Get.back();
   }
-
-  void save() {}
 }

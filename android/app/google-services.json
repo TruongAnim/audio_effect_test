@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "871266574061",
+    "project_id": "audio-effect-test",
+    "storage_bucket": "audio-effect-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871266574061:android:2a7ebc554f4e4f8b2b76e4",
+        "android_client_info": {
+          "package_name": "com.example.audio_effect_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871266574061-9vosn4u04u3ccsf79p418ikg2ga5pe0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYIpJocXYLmDzrhTYTAySoJOpC8vyQoxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871266574061-9vosn4u04u3ccsf79p418ikg2ga5pe0f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

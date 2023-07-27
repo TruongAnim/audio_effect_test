@@ -18,6 +18,9 @@ dependencies:
   path_provider: ^2.0.15
   record: ^4.4.4
   video_player: ^2.7.0
+  firebase_core: ^2.9.0
+  cloud_firestore: ^4.5.1
+  firebase_storage: ^11.1.0
 
 dev_dependencies:
   flutter_test:

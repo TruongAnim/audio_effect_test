@@ -113,4 +113,8 @@ class PlaybackController extends GetxController {
   void back() {
     Get.back();
   }
+
+  void save() {
+    // Record record =
+  }
 }

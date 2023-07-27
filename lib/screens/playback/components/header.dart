@@ -40,11 +40,11 @@ class _HeaderState extends State<Header> {
           const SizedBox(
             width: 10,
           ),
-          Expanded(
+          const Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   "Record editing",
                   style: TextStyle(color: Colors.white, fontSize: 18),
