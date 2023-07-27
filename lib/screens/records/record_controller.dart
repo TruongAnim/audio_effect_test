@@ -15,10 +15,10 @@ class RecordController extends GetxController {
 
   String _appDirectoryPath = "";
   Record record = Record();
-  @override
-  void onInit() {
-    super.onInit();
-    getSong();
+
+  void initSong(Song newSong) {
+    state.value = RecordState.loading;
+    song.value = newSong;
     _getAppDirectoryPath();
     videoPlayer = VideoPlayerController.asset(song.value!.url)
       ..initialize().then((_) {
@@ -39,9 +39,11 @@ class RecordController extends GetxController {
 
   void getSong() {
     song.value = Song(
+        id: '1',
         name: 'Bản tình ca không hoàn thiện',
         auther: 'Tây nguyên sound',
-        url: 'assets/videos/videoplayback.mp4');
+        url: 'assets/videos/videoplayback.mp4',
+        thumbnail: '');
   }
 
   void play() {

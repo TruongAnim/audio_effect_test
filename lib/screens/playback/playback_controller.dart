@@ -54,9 +54,11 @@ class PlaybackController extends GetxController {
 
   void getSong() {
     song.value = Song(
+        id: '1',
         name: 'Bản tình ca không hoàn thiện',
         auther: 'Tây nguyên sound',
-        url: 'assets/videos/videoplayback.mp4');
+        url: 'assets/videos/videoplayback.mp4',
+        thumbnail: '');
   }
 
   void play() {

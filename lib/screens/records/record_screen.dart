@@ -1,5 +1,6 @@
 import 'package:audio_effect_test/components/timer_widget.dart';
 import 'package:audio_effect_test/constants/colors.dart';
+import 'package:audio_effect_test/models/song.dart';
 import 'package:audio_effect_test/screens/lyric/lyric_widget.dart';
 import 'package:audio_effect_test/screens/records/components/bottom_bar.dart';
 import 'package:audio_effect_test/screens/records/record_controller.dart';
@@ -18,6 +19,13 @@ class RecordScreen extends StatefulWidget {
 
 class _RecordScreenState extends State<RecordScreen> {
   RecordController controller = Get.find();
+  @override
+  void initState() {
+    super.initState();
+    Song song = Get.arguments as Song;
+    controller.initSong(song);
+  }
+
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;

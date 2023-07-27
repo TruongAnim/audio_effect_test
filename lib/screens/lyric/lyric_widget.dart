@@ -27,6 +27,13 @@ class _LyricWidgetState extends State<LyricWidget> {
       .getModel();
   var lyricUI = UINetease();
 
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    String minutes = twoDigits(duration.inMinutes.remainder(60));
+    String seconds = twoDigits(duration.inSeconds.remainder(60));
+    return '$minutes:$seconds';
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQueryData = MediaQuery.of(context);
@@ -35,7 +42,7 @@ class _LyricWidgetState extends State<LyricWidget> {
         Container(
             height: mediaQueryData.size.height,
             width: mediaQueryData.size.width,
-            child: LyricBackground()),
+            child: const LyricBackground()),
         Obx(
           () => LyricsReader(
             padding: EdgeInsets.symmetric(horizontal: lyricPadding),
@@ -55,23 +62,23 @@ class _LyricWidgetState extends State<LyricWidget> {
                 children: [
                   IconButton(
                       onPressed: () {
-                        LyricsLog.logD("点击事件");
+                        // LyricsLog.logD("点击事件");
                         confirm.call();
                         setState(() {
                           // audioPlayer?.seek(Duration(milliseconds: progress));
                         });
                       },
-                      icon: Icon(Icons.play_arrow, color: Colors.green)),
+                      icon: const Icon(Icons.play_arrow, color: Colors.green)),
                   Expanded(
                     child: Container(
-                      decoration: BoxDecoration(color: Colors.green),
+                      decoration: const BoxDecoration(color: Colors.green),
                       height: 1,
                       width: double.infinity,
                     ),
                   ),
                   Text(
-                    progress.toString(),
-                    style: TextStyle(color: Colors.green),
+                    formatDuration(Duration(milliseconds: progress)),
+                    style: const TextStyle(color: Colors.green),
                   )
                 ],
               );
