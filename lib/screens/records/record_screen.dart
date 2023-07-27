@@ -1,4 +1,5 @@
 import 'package:audio_effect_test/constants/colors.dart';
+import 'package:audio_effect_test/screens/lyric/lyric_widget.dart';
 import 'package:audio_effect_test/screens/records/components/bottom_bar.dart';
 import 'package:audio_effect_test/screens/records/record_controller.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,12 @@ class _RecordScreenState extends State<RecordScreen> {
                           child: CircularProgressIndicator(),
                         ),
                       ),
-                const Spacer(),
+                SizedBox(height: 15),
+                Container(
+                  height: h * 0.35,
+                  child: LyricWidget(),
+                ),
+                Spacer(),
                 BottomBar(),
                 const SizedBox(height: 20),
               ],

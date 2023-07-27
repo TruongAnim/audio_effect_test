@@ -55,10 +55,7 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
                     ),
                   ),
             const Player(),
-            Container(
-              height: h * 0.3,
-              child: LyricWidget(),
-            ),
+            Spacer(),
             SizedBox(
               height: 10,
             ),

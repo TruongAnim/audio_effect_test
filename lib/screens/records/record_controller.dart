@@ -7,9 +7,10 @@ import 'package:record/record.dart';
 enum VideoState { loading, ready, playing, pause, stop }
 
 class RecordController extends GetxController {
-  Rx<VideoState> state = Rx<VideoState>(VideoState.loading);
   late VideoPlayerController playerController;
+  Rx<VideoState> state = Rx<VideoState>(VideoState.loading);
   Rx<Song?> song = Rx<Song?>(null);
+  Rx<Duration> position = Rx<Duration>(Duration.zero);
 
   String _appDirectoryPath = "";
   Record record = Record();
@@ -22,6 +23,10 @@ class RecordController extends GetxController {
       ..initialize().then((_) {
         state.value = VideoState.ready;
       });
+    playerController.addListener(() async {
+      position.value = (await playerController.position)!;
+      print(position);
+    });
   }
 
   @override

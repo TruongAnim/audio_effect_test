@@ -1,5 +1,6 @@
 import 'package:audio_effect_test/screens/lyric/components/lyric_background.dart';
 import 'package:audio_effect_test/screens/playback/playback_controller.dart';
+import 'package:audio_effect_test/screens/records/record_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class LyricWidget extends StatefulWidget {
 }
 
 class _LyricWidgetState extends State<LyricWidget> {
-  PlaybackController playbackController = Get.find();
+  RecordController recordController = Get.find();
   var lyricPadding = 40.0;
   AudioPlayer? audioPlayer;
   double sliderProgress = 111658;
@@ -26,8 +27,8 @@ class _LyricWidgetState extends State<LyricWidget> {
 
   bool useEnhancedLrc = false;
   var lyricModel = LyricsModelBuilder.create()
-      .bindLyricToMain(normalLyric)
-      .bindLyricToExt(transLyric)
+      .bindLyricToMain(advancedLyric)
+      // .bindLyricToExt(transLyric)
       .getModel();
   var lyricUI = UINetease();
 
@@ -44,7 +45,7 @@ class _LyricWidgetState extends State<LyricWidget> {
           () => LyricsReader(
             padding: EdgeInsets.symmetric(horizontal: lyricPadding),
             model: lyricModel,
-            position: playbackController.position.value.inMilliseconds,
+            position: recordController.position.value.inMilliseconds,
             lyricUi: lyricUI,
             playing: playing,
             size: Size(double.infinity, MediaQuery.of(context).size.height / 2),
