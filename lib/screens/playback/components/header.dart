@@ -22,49 +22,44 @@ class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
-    return Obx(
-      () {
-        Song? song = controller.song.value;
-        return Container(
-          height: h * 0.08,
-          child: Row(
-            children: [
-              const SizedBox(
-                width: 10,
-              ),
-              GestureDetector(
-                onTap: controller.back,
-                child: const Icon(
-                  Icons.arrow_back,
-                  size: 25,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "Record editing",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              RoundTextButton(
-                  text: 'Save', onPressed: controller.save, isEnable: true),
-              const SizedBox(width: 15),
-            ],
+    return Container(
+      height: h * 0.08,
+      child: Row(
+        children: [
+          const SizedBox(
+            width: 10,
           ),
-        );
-      },
+          GestureDetector(
+            onTap: controller.back,
+            child: const Icon(
+              Icons.arrow_back,
+              size: 25,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  "Record editing",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          RoundTextButton(
+              text: 'Save', onPressed: controller.save, isEnable: true),
+          const SizedBox(width: 15),
+        ],
+      ),
     );
   }
 }

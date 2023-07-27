@@ -37,29 +37,46 @@ class _RecordScreenState extends State<RecordScreen> {
             child: Column(
               children: [
                 const Header(),
-                controller.state.value != RecordState.loading
-                    ? AspectRatio(
-                        aspectRatio: controller.videoPlayer.value.aspectRatio,
-                        child: VideoPlayer(controller.videoPlayer),
-                      )
-                    : SizedBox(
-                        height: h * 0.2,
-                        child: const SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: Center(child: CircularProgressIndicator()),
-                        ),
+                if (controller.state.value == RecordState.loading)
+                  Stack(children: [
+                    Image.network(
+                      controller.song.value!.thumbnail,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    SizedBox(
+                      height: h * 0.3,
+                      width: double.infinity,
+                      child: const SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: Center(child: CircularProgressIndicator()),
                       ),
+                    ),
+                  ])
+                else if (controller.state.value == RecordState.ready)
+                  Stack(children: [
+                    Image.network(
+                      controller.song.value!.thumbnail,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ])
+                else
+                  AspectRatio(
+                    aspectRatio: controller.videoPlayer.value.aspectRatio,
+                    child: VideoPlayer(controller.videoPlayer),
+                  ),
                 const SizedBox(height: 15),
                 SizedBox(
-                  height: h * 0.4,
+                  height: h * 0.35,
                   child: const LyricWidget(),
                 ),
                 const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     TimerWidget(
                       duration: controller.position.value,
                       color: Colors.white.withOpacity(0.8),

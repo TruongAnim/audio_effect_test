@@ -20,8 +20,6 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
   @override
   void initState() {
     super.initState();
-    String path = Get.arguments;
-    controller.setAudioPath(path);
     controller.loadData();
   }
 
@@ -40,26 +38,43 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
         body: SafeArea(
           child: Column(children: [
             const Header(),
-            controller.state.value != PlaybackState.loading
-                ? AspectRatio(
-                    aspectRatio: controller.videoPlayer.value.aspectRatio,
-                    child: VideoPlayer(controller.videoPlayer),
-                  )
-                : SizedBox(
-                    height: h * 0.2,
-                    child: const SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: Center(child: CircularProgressIndicator()),
-                    ),
+            if (controller.state.value == PlaybackState.loading)
+              Stack(children: [
+                Image.network(
+                  controller.song.value!.thumbnail,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(
+                  height: h * 0.3,
+                  width: double.infinity,
+                  child: const SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Center(child: CircularProgressIndicator()),
                   ),
+                ),
+              ])
+            else if (controller.state.value == PlaybackState.ready)
+              Stack(children: [
+                Image.network(
+                  controller.song.value!.thumbnail,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+              ])
+            else
+              AspectRatio(
+                aspectRatio: controller.videoPlayer.value.aspectRatio,
+                child: VideoPlayer(controller.videoPlayer),
+              ),
             const PlaybackPlayer(),
             const Spacer(),
             const SizedBox(
               height: 10,
             ),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 SizedBox(width: 15),
                 Text(
                   'Sound effects',

@@ -34,10 +34,13 @@ class _HeaderState extends State<Header> {
               const SizedBox(
                 width: 15,
               ),
-              const Icon(
-                Icons.arrow_back,
-                size: 25,
-                color: Colors.white,
+              GestureDetector(
+                onTap: controller.back,
+                child: const Icon(
+                  Icons.arrow_back,
+                  size: 25,
+                  color: Colors.white,
+                ),
               ),
               const SizedBox(
                 width: 15,

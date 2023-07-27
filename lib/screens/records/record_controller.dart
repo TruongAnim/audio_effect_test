@@ -100,7 +100,8 @@ class RecordController extends GetxController {
   }
 
   void toPlaybackScreen(String path) async {
-    await Get.toNamed('playback_screen', arguments: path);
+    await Get.toNamed('playback_screen',
+        arguments: {'audio': path, 'song': song.value});
   }
 
   void mainButtonTap() {

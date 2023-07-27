@@ -20,7 +20,9 @@ class PlaybackController extends GetxController {
   late VideoPlayerController videoPlayer;
 
   void loadData() {
-    getSong();
+    song.value = Get.arguments['song'];
+    audioPath = Get.arguments['audio'];
+    state.value = PlaybackState.loading;
     initPlayer();
     videoPlayer = VideoPlayerController.asset(song.value!.url,
         videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
@@ -33,7 +35,7 @@ class PlaybackController extends GetxController {
     EffectController effectController = Get.find();
     audioPlayer = await effectController.init(audioPath!);
     duration.value = audioPlayer.duration!;
-    audioPlayer.setPitch(1.1);
+    // audioPlayer.setPitch(1.1);
 
     audioPlayer.playerStateStream.listen((state) {
       if (state.processingState == ProcessingState.completed) {
@@ -50,15 +52,6 @@ class PlaybackController extends GetxController {
     videoPlayer.dispose();
     audioPlayer.dispose();
     super.onClose();
-  }
-
-  void getSong() {
-    song.value = Song(
-        id: '1',
-        name: 'Bản tình ca không hoàn thiện',
-        auther: 'Tây nguyên sound',
-        url: 'assets/videos/videoplayback.mp4',
-        thumbnail: '');
   }
 
   void play() {
@@ -82,7 +75,6 @@ class PlaybackController extends GetxController {
   }
 
   void done() {
-    print('done');
     if (isPlayVideo) {
       videoPlayer.pause();
     }
@@ -110,16 +102,15 @@ class PlaybackController extends GetxController {
     }
   }
 
-  void setAudioPath(String path) {
-    audioPath = path;
-  }
-
   void clearState() {
-    print('clear state');
     state.value = PlaybackState.stop;
     videoPlayer.pause();
     videoPlayer.dispose();
     audioPlayer.pause();
     audioPlayer.dispose();
+  }
+
+  void back() {
+    Get.back();
   }
 }
