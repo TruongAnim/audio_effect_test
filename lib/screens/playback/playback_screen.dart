@@ -1,4 +1,5 @@
 import 'package:audio_effect_test/constants/colors.dart';
+import 'package:audio_effect_test/screens/lyric/lyric_widget.dart';
 import 'package:audio_effect_test/screens/playback/playback_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,7 +55,13 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
                     ),
                   ),
             const Player(),
-            const Spacer(),
+            Container(
+              height: h * 0.3,
+              child: LyricWidget(),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               children: const [
                 SizedBox(width: 15),
@@ -68,7 +75,7 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
               ],
             ),
             BottomBar(),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
           ]),
         ),
       ),
