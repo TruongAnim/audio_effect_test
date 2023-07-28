@@ -73,7 +73,7 @@ class _PlaybackScreenState extends State<PlaybackScreen> {
             const SizedBox(
               height: 10,
             ),
-            const Row(
+            Row(
               children: [
                 SizedBox(width: 15),
                 Text(

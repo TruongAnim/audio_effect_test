@@ -26,7 +26,6 @@ class RecordController extends GetxController {
       });
     videoPlayer.addListener(() async {
       position.value = (await videoPlayer.position)!;
-      print(position);
     });
   }
 

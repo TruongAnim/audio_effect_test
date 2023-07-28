@@ -129,5 +129,6 @@ class PlaybackController extends GetxController {
         volumeSong: 1,
         volumeRecord: 1);
     RecordRepo.instance.uploadRecord(record);
+    Get.offAllNamed('/home_screen');
   }
 }

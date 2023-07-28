@@ -40,8 +40,6 @@ class SongRepo {
 
   Song getSongFromid(String id) {
     return _data.firstWhere((element) {
-      print(element);
-      print(id);
       return element.id == id;
     });
   }

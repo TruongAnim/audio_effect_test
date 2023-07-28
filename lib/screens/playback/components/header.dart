@@ -40,7 +40,7 @@ class _HeaderState extends State<Header> {
           const SizedBox(
             width: 10,
           ),
-          const Expanded(
+          Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,

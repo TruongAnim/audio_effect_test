@@ -24,54 +24,92 @@ class _RecordPageItemState extends State<RecordPageItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Container(
-          height: 60,
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  song.thumbnail,
-                  fit: BoxFit.cover,
-                  height: 60,
-                  width: 60,
-                ),
+    return Card(
+      child: Column(children: [
+        const SizedBox(
+          height: 10,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(
+              width: 12,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.record.name,
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.pink),
+                  ),
+                ],
               ),
-              SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      song.name,
-                      style: TextStyle(fontSize: 16, color: Colors.black),
+            ),
+            GradientButton(
+              colors: const [Color(0xff78c1f3), Color(0xff068fff)],
+              text: 'Play',
+              onPressed: () {},
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+          ],
+        ),
+        const Divider(
+          thickness: 1.0,
+          color: Colors.black26,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(12),
+          child: Container(
+              height: 60,
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
+                      song.thumbnail,
+                      fit: BoxFit.cover,
+                      height: 60,
+                      width: 60,
                     ),
-                    Text(
-                      song.auther,
-                      style: TextStyle(fontSize: 13, color: Colors.grey),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          song.name,
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.black),
+                        ),
+                        Text(
+                          song.auther,
+                          style:
+                              const TextStyle(fontSize: 13, color: Colors.grey),
+                        ),
+                        const Text(
+                          '12 records',
+                          style: TextStyle(fontSize: 13, color: Colors.grey),
+                        )
+                      ],
                     ),
-                    Text(
-                      '12 records',
-                      style: TextStyle(fontSize: 13, color: Colors.grey),
-                    )
-                  ],
-                ),
-              ),
-              GradientButton(
-                colors: [Color(0xff78c1f3), Color(0xff068fff)],
-                text: 'Play',
-                onPressed: () {},
-              ),
-            ],
-          )
-          // title: Text(song.name),
-          // subtitle: Text(song.auther),
-          // isThreeLine: true,
+                  ),
+                ],
+              )
+              // title: Text(song.name),
+              // subtitle: Text(song.auther),
+              // isThreeLine: true,
 
-          ),
+              ),
+        ),
+      ]),
     );
   }
 }
