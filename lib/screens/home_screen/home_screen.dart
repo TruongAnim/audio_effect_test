@@ -1,3 +1,4 @@
+import 'package:audio_effect_test/screens/record_page/record_list.dart';
 import 'package:audio_effect_test/screens/song_page/song_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   );
   final List<Widget> _tabs = [
     SongPage(),
-    Tab2(),
+    RecordPage(),
     Tab3(),
     Tab4(),
   ];

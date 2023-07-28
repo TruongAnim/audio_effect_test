@@ -1,6 +1,7 @@
 import 'package:audio_effect_test/screens/home_screen/home_screen.dart';
 import 'package:audio_effect_test/screens/playback/effect_controller.dart';
 import 'package:audio_effect_test/screens/playback/playback_controller.dart';
+import 'package:audio_effect_test/screens/record_page/record_list_controller.dart';
 import 'package:audio_effect_test/screens/records/record_screen.dart';
 import 'package:audio_effect_test/screens/song_page/song_page_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +19,7 @@ void main() async {
     Get.put(PlaybackController());
     Get.put(EffectController());
     Get.put(SongPageController());
+    Get.put(RecordListController());
   });
 
   runApp(const MainApp());

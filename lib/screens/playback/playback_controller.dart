@@ -1,6 +1,9 @@
+import 'package:audio_effect_test/models/record.dart';
 import 'package:audio_effect_test/models/song.dart';
+import 'package:audio_effect_test/repository/record_repo.dart';
 import 'package:audio_effect_test/screens/playback/effect_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:video_player/video_player.dart';
 
@@ -115,6 +118,16 @@ class PlaybackController extends GetxController {
   }
 
   void save() {
-    // Record record =
+    final DateTime now = DateTime.now();
+    final DateFormat formatter = DateFormat('dd-MM-yyyy');
+    final String formatted = formatter.format(now);
+    Record record = Record(
+        id: '',
+        idSong: song.value!.id,
+        name: 'Record ${formatted}',
+        audio: audioPath!,
+        volumeSong: 1,
+        volumeRecord: 1);
+    RecordRepo.instance.uploadRecord(record);
   }
 }

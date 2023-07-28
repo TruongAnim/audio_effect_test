@@ -1,5 +1,5 @@
 import 'package:audio_effect_test/components/round_text_button.dart';
-import 'package:audio_effect_test/models/song.dart';
+import 'package:audio_effect_test/screens/playback/playback_controller.dart';
 import 'package:audio_effect_test/screens/records/record_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,7 +12,7 @@ class Header extends StatefulWidget {
 }
 
 class _HeaderState extends State<Header> {
-  late RecordController controller;
+  late PlaybackController controller;
   @override
   void initState() {
     super.initState();

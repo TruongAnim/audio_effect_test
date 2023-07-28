@@ -21,7 +21,16 @@ class RecordRepo {
   Future<void> uploadRecord(Record record) async {
     DocumentReference recordRef =
         FirebaseFirestore.instance.collection('records').doc();
+    record.id = recordRef.id;
     record.audio = await _uploadAudio(recordRef.id, record.audio);
-    await recordRef.set(record.toJson());
+    await recordRef.set(record.toMap());
+  }
+
+  Stream<List<Record>> getAllRecords() {
+    return FirebaseFirestore.instance.collection('records').snapshots().map(
+      (QuerySnapshot snapshot) {
+        return snapshot.docs.map((e) => Record.fromSnapshot(e)).toList();
+      },
+    );
   }
 }

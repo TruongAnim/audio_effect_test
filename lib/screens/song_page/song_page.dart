@@ -16,6 +16,12 @@ class _SongPageState extends State<SongPage> {
   SongPageController controller = Get.find();
 
   @override
+  void initState() {
+    super.initState();
+    controller.initData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
