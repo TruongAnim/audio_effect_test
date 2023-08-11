@@ -1,20 +1,16 @@
 import 'package:audio_effect_test/models/record.dart';
 import 'package:audio_effect_test/models/song.dart';
-import 'package:audio_effect_test/repository/record_repo.dart';
-import 'package:audio_effect_test/screens/playback/effect_controller.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:path/path.dart' as path;
 import 'package:just_audio/just_audio.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
 
-enum PlaybackState { loading, ready, playing, pause, stop }
+enum PresentationState { loading, ready, playing, pause, stop }
 
-class PlaybackController extends GetxController {
-  String? audioPath;
-  Rx<PlaybackState> state = Rx<PlaybackState>(PlaybackState.loading);
+class PresentationController extends GetxController {
+  Rx<PresentationState> state =
+      Rx<PresentationState>(PresentationState.loading);
   Rx<Song?> song = Rx<Song?>(null);
+  Rx<Record?> record = Rx<Record?>(null);
   Rx<Duration> position = Rx<Duration>(Duration.zero);
   Rx<Duration> duration = Rx<Duration>(Duration.zero);
 
@@ -24,27 +20,33 @@ class PlaybackController extends GetxController {
   late AudioPlayer audioPlayer;
   late VideoPlayerController videoPlayer;
 
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
   void loadData() {
     song.value = Get.arguments['song'];
-    audioPath = Get.arguments['audio'];
-    state.value = PlaybackState.loading;
+    record.value = Get.arguments['record'];
+
+    state.value = PresentationState.loading;
     initPlayer();
     videoPlayer = VideoPlayerController.asset(song.value!.url,
         videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true))
       ..initialize().then((_) {
-        state.value = PlaybackState.ready;
+        state.value = PresentationState.ready;
       });
   }
 
   Future<void> initPlayer() async {
-    EffectController effectController = Get.find();
-    audioPlayer = await effectController.init(audioPath!);
+    audioPlayer = AudioPlayer();
+    await audioPlayer
+        .setAudioSource(AudioSource.uri(Uri.https(record.value!.audio)));
     duration.value = audioPlayer.duration!;
-    // audioPlayer.setPitch(1.1);
 
     audioPlayer.playerStateStream.listen((state) {
       if (state.processingState == ProcessingState.completed) {
-        done();
+        // done();
       }
     });
     audioPlayer.positionStream.listen((event) {
@@ -66,7 +68,7 @@ class PlaybackController extends GetxController {
     if (isPlayAudio) {
       audioPlayer.play();
     }
-    state.value = PlaybackState.playing;
+    state.value = PresentationState.playing;
   }
 
   void pause() {
@@ -76,28 +78,28 @@ class PlaybackController extends GetxController {
     if (isPlayAudio) {
       audioPlayer.pause();
     }
-    state.value = PlaybackState.pause;
+    state.value = PresentationState.pause;
   }
 
   void done() {
     if (isPlayVideo) {
       videoPlayer.pause();
     }
-    state.value = PlaybackState.stop;
+    state.value = PresentationState.stop;
   }
 
   mainButtonTap() {
-    if (state.value == PlaybackState.ready) {
+    if (state.value == PresentationState.ready) {
       play();
-    } else if (state.value == PlaybackState.playing) {
+    } else if (state.value == PresentationState.playing) {
       pause();
-    } else if (state.value == PlaybackState.pause) {
+    } else if (state.value == PresentationState.pause) {
       play();
     }
   }
 
   replay() {
-    state.value = PlaybackState.playing;
+    state.value = PresentationState.playing;
     if (isPlayAudio) {
       audioPlayer.seek(Duration.zero);
     }
@@ -108,38 +110,10 @@ class PlaybackController extends GetxController {
   }
 
   void clearState() {
-    state.value = PlaybackState.stop;
+    state.value = PresentationState.stop;
     videoPlayer.pause();
     videoPlayer.dispose();
     audioPlayer.pause();
     audioPlayer.dispose();
-  }
-
-  void back() {
-    Get.back();
-  }
-
-  // Future<String> applyEffect() async {
-  //   final appDocDir = await getApplicationDocumentsDirectory();
-  //   final outputPath = path.join( appDocDir.path,DateTime.now().millisecondsSinceEpoch.toString()+'.mp3');
-  //   print(outputPath);
-
-  //   await audioPlayer.(
-  //       path: outputPath, format: PlayerDataFormat.asset);
-  // }
-
-  void save() {
-    final DateTime now = DateTime.now();
-    final DateFormat formatter = DateFormat('dd-MM-yyyy');
-    final String formatted = formatter.format(now);
-    Record record = Record(
-        id: '',
-        idSong: song.value!.id,
-        name: 'Record ${formatted}',
-        audio: audioPath!,
-        volumeSong: 1,
-        volumeRecord: 1);
-    RecordRepo.instance.uploadRecord(record);
-    Get.offAllNamed('/home_screen');
   }
 }

@@ -1,3 +1,4 @@
+import 'package:audio_effect_test/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -7,8 +8,7 @@ import 'loudness_controller_widget.dart';
 class BotttomSheetWidget extends StatefulWidget {
   final AndroidEqualizer equalizer;
   final AndroidLoudnessEnhancer loudness;
-  const BotttomSheetWidget(
-      {super.key, required this.equalizer, required this.loudness});
+  const BotttomSheetWidget({super.key, required this.equalizer, required this.loudness});
 
   @override
   State<BotttomSheetWidget> createState() => _BotttomSheetWidgetState();
@@ -22,7 +22,7 @@ class _BotttomSheetWidgetState extends State<BotttomSheetWidget> {
     double h = MediaQuery.of(context).size.height;
     return Container(
       height: h * 0.7,
-      color: Color.fromARGB(255, 37, 12, 28),
+      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +34,7 @@ class _BotttomSheetWidgetState extends State<BotttomSheetWidget> {
               return SwitchListTile(
                 title: const Text(
                   'Loudness Enhancer',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: ColorPalette.primaryColor),
                 ),
                 value: enabled,
                 onChanged: _loudnessEnhancer.setEnabled,
@@ -49,7 +49,7 @@ class _BotttomSheetWidgetState extends State<BotttomSheetWidget> {
               return SwitchListTile(
                 title: const Text(
                   'Equalizer',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: ColorPalette.primaryColor),
                 ),
                 value: enabled,
                 onChanged: _equalizer.setEnabled,

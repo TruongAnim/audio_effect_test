@@ -14,4 +14,8 @@ class RecordListController extends GetxController {
   Song getSongFromId(String id) {
     return SongRepo.instance.getSongFromid(id);
   }
+
+  void toPresentation(Song song, Record record) {
+    Get.toNamed('/presentation', arguments: {'song': song, 'record': record});
+  }
 }

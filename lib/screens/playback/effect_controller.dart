@@ -14,6 +14,7 @@ class EffectController extends GetxController {
 
   Future<AudioPlayer> init(String path) async {
     _equalizer = AndroidEqualizer();
+    
     _loudnessEnhancer = AndroidLoudnessEnhancer();
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());

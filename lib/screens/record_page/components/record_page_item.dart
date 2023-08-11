@@ -52,7 +52,9 @@ class _RecordPageItemState extends State<RecordPageItem> {
             GradientButton(
               colors: const [Color(0xff78c1f3), Color(0xff068fff)],
               text: 'Play',
-              onPressed: () {},
+              onPressed: () {
+                controller.toPresentation(song, widget.record);
+              },
             ),
             const SizedBox(
               width: 10,
